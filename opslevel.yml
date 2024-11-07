@@ -1,6 +1,6 @@
 
 version: 1
-services:
+service:
   - name: "Souf Cart Service"
     lifecycle: active
     tier: tier_1
