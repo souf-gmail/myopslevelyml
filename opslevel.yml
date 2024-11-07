@@ -1,0 +1,321 @@
+
+version: 1
+services:
+  - name: "(Sample) Shopping Cart Service"
+    lifecycle: active
+    tier: tier_1
+    product: Retail Website
+    owner: sample_order_management_team
+    system: sample_cart
+    language: Ruby
+    framework: Rails
+    description: Allows users to add/remove products in their virtual shopping carts prior to placing an order.
+    aliases:
+      - cart
+      - Shopping Cart Service
+      - ShoppingCartService
+    tags:
+      - key: db
+        value: mysql
+      - key: kafka-topic
+        value: cart-additions
+      - key: pd_id
+        value: PAQ8CJA
+      - key: release
+        value: '5.6'
+    repositories: []
+    tools:
+      - name: PagerDuty
+        category: incidents
+        url: https://bigriver.pagerduty.com/services/BWA23IT
+        environment: Production
+      - name: Sentry
+        category: errors
+        url: https://sentry.com/dashboard
+        environment: Production
+      - name: Splunk
+        category: logs
+        url: http://www.splunk.com/url
+      - name: Datadog
+        category: metrics
+        url: https://datadog.com/dashboard
+      - name: Confluence
+        category: runbooks
+        url: http://ua.atlassian.com/etc
+      - name: Gremlin
+        category: other
+        url: https://bigriverbooks.gremlin.com/catalog_service
+        environment: Staging
+      - name: Snyk
+        category: security
+        url: https://app.snyk.io/org/john-g5v/
+      - name: Admin
+        category: admin
+        url: https://catalog.bigriverbooks.com/admin
+      - name: Kubernetes
+        category: orchestrator
+        url: https://deploy.bigriver.com/catalog
+      - name: Pingdom
+        category: health_checks
+        url: https://bigriver.pingdom.com/catalog
+      - name: Jira
+        category: other
+        url: https://jk.atlassian.net/order-mgmt
+      - name: Octopus Deploy
+        category: deployment
+        url: https://octopus.com/app/admin/managing-infrastructure/deploys/
+    dependencies:
+      - alias: sample_inventory_tracker
+    alert_sources:
+    properties: {}
+
+  - name: "(Sample) Inventory Tracker Service"
+    lifecycle: beta
+    tier: tier_2
+    product: Retail Website
+    owner: inventory_management_team
+    system: sample_inventory
+    language: Python
+    framework: Django
+    description: Tracks inventory levels and updates stock based on orders and shipments.
+    aliases:
+      - inventory
+      - InventoryTracker
+      - stock-service
+    tags:
+      - key: db
+        value: postgres
+      - key: pd_id
+        value: PAZ9DFK
+      - key: release
+        value: '1.2'
+    tools:
+      - name: Datadog
+        category: metrics
+        url: https://datadog.com/dashboard
+      - name: Confluence
+        category: documentation
+        url: http://inventory.atlassian.com/etc
+      - name: Jira
+        category: tracking
+        url: https://inventory.jira.com
+    dependencies:
+      - alias: sample_billing_service
+    alert_sources:
+    properties: {}
+
+  - name: "(Sample) Billing Service"
+    lifecycle: production
+    tier: tier_1
+    product: Payments System
+    owner: billing_team
+    system: sample_billing
+    language: Java
+    framework: Spring Boot
+    description: Manages billing and payment processing for the retail website.
+    aliases:
+      - billing
+      - BillingService
+      - payments
+    tags:
+      - key: db
+        value: oracle
+      - key: pd_id
+        value: PAY9MN2
+      - key: region
+        value: us-east
+    tools:
+      - name: PagerDuty
+        category: incidents
+        url: https://bigriver.pagerduty.com/services/BWX89IT
+      - name: Snyk
+        category: security
+        url: https://app.snyk.io/org/billing/
+    dependencies: []
+    alert_sources:
+    properties: {}
+
+  - name: "(Sample) Order Management Service"
+    lifecycle: maintenance
+    tier: tier_3
+    product: Order System
+    owner: order_team
+    system: sample_order
+    language: Node.js
+    framework: Express
+    description: Handles order processing, status updates, and order history management.
+    aliases:
+      - order
+      - OrderManagement
+      - order-service
+    tags:
+      - key: db
+        value: mongo
+      - key: kafka-topic
+        value: order-updates
+      - key: pd_id
+        value: ORD9DE3
+    tools:
+      - name: Sentry
+        category: errors
+        url: https://sentry.com/order-errors
+    dependencies: []
+    alert_sources:
+    properties: {}
+
+  - name: "(Sample) Customer Service"
+    lifecycle: active
+    tier: tier_1
+    product: CRM
+    owner: customer_team
+    system: sample_customer
+    language: Go
+    framework: Gin
+    description: Stores and manages customer information and service requests.
+    aliases:
+      - customer
+      - CustomerService
+      - crm
+    tags:
+      - key: db
+        value: dynamodb
+      - key: region
+        value: us-west
+    tools:
+      - name: Pingdom
+        category: health_checks
+        url: https://bigriver.pingdom.com/customer-service
+    dependencies:
+      - alias: sample_notification_service
+    alert_sources:
+    properties: {}
+
+  - name: "(Sample) Notification Service"
+    lifecycle: active
+    tier: tier_2
+    product: Notifications System
+    owner: notifications_team
+    system: sample_notifications
+    language: Python
+    framework: Flask
+    description: Sends notifications via email, SMS, and in-app messaging to users.
+    aliases:
+      - notifications
+      - NotificationService
+      - notifier
+    tags:
+      - key: message-queue
+        value: rabbitmq
+      - key: pd_id
+        value: NOTIF123
+    tools:
+      - name: Sentry
+        category: errors
+        url: https://sentry.com/notifications-errors
+    dependencies: []
+    alert_sources:
+    properties: {}
+
+  - name: "(Sample) Search Service"
+    lifecycle: active
+    tier: tier_1
+    product: Search System
+    owner: search_team
+    system: sample_search
+    language: Java
+    framework: Spring
+    description: Allows users to search for products and categories within the website.
+    aliases:
+      - search
+      - SearchService
+      - product-search
+    tags:
+      - key: search-engine
+        value: elasticsearch
+      - key: release
+        value: '2.0'
+    tools:
+      - name: Gremlin
+        category: chaos
+        url: https://bigriver.gremlin.com/search-service
+    dependencies: []
+    alert_sources:
+    properties: {}
+
+  - name: "(Sample) Recommendation Service"
+    lifecycle: active
+    tier: tier_2
+    product: Recommendation System
+    owner: recommendation_team
+    system: sample_recommendations
+    language: Scala
+    framework: Akka
+    description: Provides personalized product recommendations to users.
+    aliases:
+      - recommendations
+      - RecommendationService
+      - product-recommender
+    tags:
+      - key: db
+        value: neo4j
+      - key: kafka-topic
+        value: recommendations-feed
+    tools:
+      - name: Datadog
+        category: metrics
+        url: https://datadog.com/recommendations-dashboard
+    dependencies: []
+    alert_sources:
+    properties: {}
+
+  - name: "(Sample) Shipping Service"
+    lifecycle: deprecated
+    tier: tier_3
+    product: Logistics
+    owner: shipping_team
+    system: sample_shipping
+    language: PHP
+    framework: Laravel
+    description: Manages shipping options and calculates shipping costs.
+    aliases:
+      - shipping
+      - ShippingService
+      - delivery
+    tags:
+      - key: region
+        value: eu-central
+      - key: shipping-api
+        value: DHL
+    tools:
+      - name: Pingdom
+        category: health_checks
+        url: https://bigriver.pingdom.com/shipping
+    dependencies: []
+    alert_sources:
+    properties: {}
+
+  - name: "(Sample) Analytics Service"
+    lifecycle: active
+    tier: tier_1
+    product: Data Analytics
+    owner: analytics_team
+    system: sample_analytics
+    language: Python
+    framework: Pandas
+    description: Analyzes user behavior data for trends and insights.
+    aliases:
+      - analytics
+      - AnalyticsService
+      - data-analysis
+    tags:
+      - key: db
+        value: bigquery
+      - key: pd_id
+        value: ANAL1234
+    tools:
+      - name: Jira
+        category: tracking
+        url: https://analytics.jira.com
+    dependencies: []
+    alert_sources:
+    properties: {}
