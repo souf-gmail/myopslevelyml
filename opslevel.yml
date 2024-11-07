@@ -1,72 +1,88 @@
 ---
 version: 1
 service:
-  - name: "Souf Cart Service"
-    lifecycle: active
-    tier: tier_1
-    product: Retail Website
-    owner: sample_order_management_team
-    system: sample_cart
-    language: Ruby
-    framework: Rails
-    description: Allows users to add/remove products in their virtual shopping carts prior to placing an order.
-    aliases:
-      - cart
-      - Shopping Cart Service
-      - ShoppingCartService
-    tags:
-      - key: db
-        value: mysql
-      - key: kafka-topic
-        value: cart-additions
-      - key: pd_id
-        value: PAQ8CJA
-      - key: release
-        value: '5.6'
-    repositories: []
-    tools:
-      - name: PagerDuty
-        category: incidents
-        url: https://bigriver.pagerduty.com/services/BWA23IT
-        environment: Production
-      - name: Sentry
-        category: errors
-        url: https://sentry.com/dashboard
-        environment: Production
-      - name: Splunk
-        category: logs
-        url: http://www.splunk.com/url
-      - name: Datadog
-        category: metrics
-        url: https://datadog.com/dashboard
-      - name: Confluence
-        category: runbooks
-        url: http://ua.atlassian.com/etc
-      - name: Gremlin
-        category: other
-        url: https://bigriverbooks.gremlin.com/catalog_service
-        environment: Staging
-      - name: Snyk
-        category: security
-        url: https://app.snyk.io/org/john-g5v/
-      - name: Admin
-        category: admin
-        url: https://catalog.bigriverbooks.com/admin
-      - name: Kubernetes
-        category: orchestrator
-        url: https://deploy.bigriver.com/catalog
-      - name: Pingdom
-        category: health_checks
-        url: https://bigriver.pingdom.com/catalog
-      - name: Jira
-        category: other
-        url: https://jk.atlassian.net/order-mgmt
-      - name: Octopus Deploy
-        category: deployment
-        url: https://octopus.com/app/admin/managing-infrastructure/deploys/
-    dependencies:
-      - alias: sample_inventory_tracker
-    alert_sources:
-    properties: {}
-
-  
+  name: "SOUF Shopping Cart Service"
+  lifecycle:
+  tier: tier_1
+  product: Retail Website
+  owner: sample_order_management_team
+  system: sample_cart
+  language: Ruby
+  framework: Rails
+  description: Allows users to add/remove products in their virtual shopping carts
+    prior to placing an order.
+  aliases:
+  - cart
+  - Shopping Cart Service
+  - ShoppingCartService
+  tags:
+  - key: db
+    value: mysql
+  - key: kafka-topic
+    value: cart-additions
+  - key: pd_id
+    value: PAQ8CJA
+  - key: release
+    value: '5.6'
+  repositories:
+  tools:
+  - name: PagerDuty1
+    category: incidents
+    url: https://bigriver.pagerduty.com/services/BWA23IT
+    environment: Production
+  - name: Sentry1
+    category: errors
+    url: https://sentry.com/dashboard
+    environment: Production
+  - name: Splunk1
+    category: logs
+    url: http://www.splunk.com/url
+    environment:
+  - name: Datadog1
+    category: metrics
+    url: https://datadog.com/dashboard
+    environment:
+  - name: Confluence1
+    category: runbooks
+    url: http://ua.atlassian.com/etc
+    environment:
+  - name: Gremlin1
+    category: other
+    url: https://bigriverbooks.gremlin.com/catalog_service
+    environment: Staging
+  - name: Snyk1
+    category: other
+    url: https://app.snyk.io/org/john-g5v/
+    environment:
+  - name: Admin1
+    category: admin
+    url: https://catalog.bigriverbooks.com/admin
+    environment:
+  - name: Kubernetes1
+    category: orchestrator
+    url: https://deploy.bigriver.com/catalog
+    environment:
+  - name: Pingdom1
+    category: health_checks
+    url: https://bigriver.pingdom.com/catalog
+    environment:
+  - name: Sentry1
+    category: errors
+    url: https://www.sentry.com/dashboard
+    environment: Staging
+  - name: Confluence1
+    category: wiki
+    url: https://gitlab.com/jklabsinc/OpsLevel/wikis/home
+    environment:
+  - name: Jira1
+    category: other
+    url: https://jk.atlassian.net/order-mgmt
+    environment:
+  - name: Octopus Deploy1
+    category: deployment
+    url: https://octopus.com/app/admin/managing-infrastructure/deploys/
+    environment:
+  dependencies:
+  - alias: sample_inventory_tracker1
+  alert_sources:
+  properties:
