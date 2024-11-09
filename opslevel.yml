@@ -1,7 +1,7 @@
 ---
 version: 1
 service:
-  name: "Yanis Shopping Cart Service"
+  name: "Soraya Shopping Cart Service"
   lifecycle:
   tier: tier_1
   product: Retail Website
